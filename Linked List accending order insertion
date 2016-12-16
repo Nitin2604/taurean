@@ -1,0 +1,87 @@
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+
+class linkedlist
+{
+private:
+	struct node
+	{
+		int data;
+		node* next;
+	} *head;
+
+public:
+	linkedlist();
+	void addnode(int);//adding in assending order linked list
+	void print();
+	~linkedlist();
+};
+
+linkedlist::linkedlist()   //constructor
+{
+	head = NULL;
+}
+
+void linkedlist::addnode(int x)
+{
+	node *temp, *r;
+	r = new node;
+	temp = head;
+	r->data = x;
+	if(head == NULL || head->data > x )
+	{
+		head = r;
+		r->next = temp;
+	}
+	else
+	{
+	   while(temp != NULL)
+	   {
+	   	if(temp->data < x && (temp -> next -> data > x || temp->next == NULL) )
+	   	{
+	   	   	r->next = temp->next;
+	   	   	temp -> next = r;
+	   	   	return;
+		   }
+		   temp=temp->next;
+	   }
+	   r->next=NULL;
+	   temp->next=r;	
+	}
+}
+
+void linkedlist::print()
+{
+	node *temp = head;
+	while(temp!=NULL)
+	{
+		cout<<temp->data<<endl;
+		temp=temp->next;
+	}
+}
+
+linkedlist::~linkedlist()  //distructor
+{
+	node* q;
+	while(head!=NULL)
+	{ 
+	       q = head->next;
+		delete head;
+		head = q;
+	}
+	delete q;
+}
+int main()
+{
+	linkedlist obj;
+	obj.addnode(3);
+	obj.addnode(2);
+	obj.addnode(1);
+	obj.addnode(2);
+	obj.addnode(6);
+	obj.print();
+	
+}
+
+
