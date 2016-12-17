@@ -1,0 +1,40 @@
+//Selection Sorting 
+//this is the selection sporting algorith fo the lernig process
+//this selection sorting algo is not too good it have the complexity of O(n^2) which is sopose to be bad in nature.
+
+
+#include<stdio.h>
+#include<iostream>
+#include <vector>
+using namespace std;
+int main()
+{
+	cout << "Enter the input number to be sorted" << endl;
+	int number;
+	cin >> number;
+	vector<int>vec;
+	for (size_t i = 0; i < number; i++)
+	{
+		cout << "enter the number" << endl;
+		int x;
+		cin >> x;
+		vec.push_back(x);
+	}
+	//selection sorting starts
+	for (size_t val = 0; val < vec.size() -1; val++)
+	{
+		int minindex = val;
+		for (size_t jol = val+1; jol < vec.size() ; jol++)
+		{
+			if(vec[minindex] > vec[jol])
+				minindex = jol;
+		}
+		int c = vec[val];
+		vec[val] = vec[minindex];
+		vec[minindex] = c;
+	}
+	for (size_t a = 0; a < vec.size(); a++)
+	{
+		cout << vec[a]<< endl;
+	}
+}
