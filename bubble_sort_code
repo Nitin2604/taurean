@@ -1,0 +1,45 @@
+//here is the simple bubble sort code
+//the complexity of bubble sort in O(n^2) in worse case and average case.
+//the complexity of bubble sort in best is O(n) its when the list or array to be sorted is in assending order or sorted order.
+//space complexity is O(1) constant.
+#include<stdio.h>
+#include<iostream>
+#include <vector>
+using namespace std;
+int main()
+{
+	cout << "Enter the input number to be sorted" << endl;
+	int number;
+	cin >> number;
+	vector<int>vec;
+	for (size_t i = 0; i < number; i++)
+	{
+		cout << "enter the number" << endl;
+		int x;
+		cin >> x;
+		vec.push_back(x);
+	}
+	//Bubble Sorting Starts Here
+	for (size_t val = 0; val < vec.size(); val++)
+	{
+		for (size_t j = 0; j < vec.size()-val-1; j++)
+		{
+			if (vec[j] > vec[j + 1])
+			{
+				int x = vec[j];
+				vec[j] = vec[j + 1];
+				vec[j + 1] = x;
+			}
+			else
+			{
+				continue;
+			}
+		}
+
+	}
+	
+	for (size_t a = 0; a < vec.size(); a++)
+	{
+		cout << vec[a] << endl;
+	}
+}
