@@ -1,0 +1,168 @@
+//merging of two linked list code and easy method for learning in c++
+//this is Nitin Sivastava providing all means of learning process for linked list and other c++ code
+//as for douubt ping to nitinsrivastavabiet@gmail.com
+//code is compiled and running u can test and answer for any bug.
+
+
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+
+class linkedlist
+{
+private:
+	struct node
+	{
+		int data;
+		node* next;
+	} *head;
+
+public:
+	linkedlist();
+	void addnode(int);//adding in assending order linked list
+	void mergebysort(linkedlist &, linkedlist&);
+	void print();
+	~linkedlist();
+};
+
+linkedlist::linkedlist()   //constructor
+{
+	head = NULL;
+}
+
+void linkedlist::addnode(int x)
+{
+	node *temp, *r;
+	r = new node;
+	temp = head;
+	r->data = x;
+	if (head == NULL || head->data > x)
+	{
+		head = r;
+		head->next = temp;
+	}
+	else
+	{
+		while (temp != NULL)
+		{
+			if (temp->data < x)
+			{
+				if ((temp->next == NULL || temp->next->data > x))
+				{
+					r->next = temp->next;
+					temp->next = r;
+					return;
+				}
+			}
+			temp = temp->next;
+		}
+	}
+}
+
+void linkedlist::print()
+{
+	node *temp = head;
+	while (temp != NULL)
+	{
+		cout << temp->data << endl;
+		temp = temp->next;
+	}
+}
+void linkedlist::mergebysort(linkedlist &obj, linkedlist &obj1)
+{
+	node* mergenode;
+	mergenode = NULL;
+	if (obj.head == NULL && obj1.head == NULL)
+	{
+		return;
+	}
+	while (obj.head != NULL && obj1.head != NULL)
+	{
+		if (head == NULL)
+		{
+			head = new node;
+			mergenode = head;
+		}
+		else
+		{
+			mergenode->next = new node;
+			mergenode = mergenode->next;
+		}
+		if (obj.head->data < obj1.head->data)
+		{
+			mergenode->data = obj.head->data;
+			obj.head = obj.head->next;
+		}
+		else
+		{
+			if (obj.head->data > obj1.head->data)
+			{
+				mergenode->data = obj1.head->data;
+				obj1.head = obj1.head->next;
+			}
+			else if (obj.head->data == obj1.head->data)
+			{
+				mergenode->data = obj1.head->data;
+				obj.head = obj.head->next;
+				obj1.head = obj1.head->next;
+
+			}
+		}
+	}
+	while (obj.head != NULL)
+	{
+		mergenode = new node;
+		mergenode = mergenode->next;
+		mergenode->data = obj.head->data;
+		obj.head = obj.head->next;
+		
+	}
+	while (obj1.head != NULL)
+	{
+		mergenode->next = new node;
+		mergenode = mergenode->next;
+		mergenode->data = obj1.head->data;
+		obj1.head = obj1.head->next;
+	}
+	mergenode->next = NULL;
+}
+
+linkedlist::~linkedlist()  //distructor
+{
+	node* q;
+	while (head != NULL)
+	{
+		q = head->next;
+		delete head;
+		head = q;
+	}
+}
+int main()
+{
+	linkedlist obj;
+	linkedlist obj1;
+	linkedlist objMerge;
+
+	//linkedlist obj1;
+	cout << "linkedlist first" << endl;
+	obj.addnode(3);
+	obj.addnode(1);
+	obj.addnode(4);
+	obj.addnode(6);
+
+	obj1.addnode(4);
+	obj1.addnode(7);
+	obj1.addnode(2);
+	obj1.addnode(10);
+	obj1.addnode(3);
+	obj.print();
+	cout << "\n" << endl;
+	cout << "linkedlist second" << endl;
+
+	obj1.print();
+	cout << "Merge sorted lists " << endl;
+	objMerge.mergebysort(obj, obj1);
+	objMerge.print();
+}
+
+
