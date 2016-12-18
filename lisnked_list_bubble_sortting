@@ -1,5 +1,5 @@
 //this the linked list sorting by selection sort method..it is the good method for practising.
-//Linked List addition and soting by SELECTION SORT
+//Linked List addition and soting by BUBBLE SORT
 //code is fully compiled, error free and work of any input ..... try and run :)
 #include<stdio.h>
 #include<iostream>
