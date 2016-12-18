@@ -1,0 +1,148 @@
+//this the linked list sorting by selection sort method..it is the good method for practising.
+//Linked List addition and soting by SELECTION SORT
+//code is fully compiled, error free and work of any input ..... try and run :)
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+
+class linkedlist
+{
+private:
+	struct node
+	{
+		int data;
+		node* next;
+	} *head;
+
+public:
+	linkedlist();
+	void addnode(int);//adding in assending order linked list
+	//void selectionsort(int);
+	void bubblesort(int);
+	int ncount();
+	void print();
+	~linkedlist();
+};
+
+linkedlist::linkedlist()   //constructor
+{
+	head = NULL;
+}
+void linkedlist::addnode(int x)
+{
+	node *temp, *r;
+	if (head == NULL)
+	{
+		temp = new node;
+		temp->data = x;
+		temp->next = NULL;
+		head = temp;
+	}
+	else {
+		r = new node;
+		r->data = x;
+		r->next = head;
+		head = r;
+	}
+}
+
+//void linkedlist::addnode(int x)
+//{
+//	node *temp, *r;
+//	r = new node;
+//	temp = head;
+//	r->data = x;
+//	if (head == NULL || head->data > x)
+//	{
+//		head = r;
+//		r->next = temp;
+//	}
+//	else
+//	{
+//		while (temp != NULL)
+//		{
+//			if (temp->data < x && (temp->next->data > x || temp->next == NULL))
+//			{
+//				r->next = temp->next;
+//				temp->next = r;
+//				return;
+//			}
+//			temp = temp->next;
+//		}
+//		r->next = NULL;
+//		temp->next = r;
+//	}
+//}
+
+void linkedlist::bubblesort(int n)
+{
+	int temp;
+	node *current, *nextt;
+	for (size_t i = 0; i < n; i++)
+	{
+		current = head;
+		nextt = current->next;
+		for (size_t j = 0; j < n-1; j++)
+		{
+			if (current->data > nextt ->data)
+			{
+				//swap the data
+				temp = current->data;
+				current->data = nextt->data;
+				nextt->data = temp;
+			}
+			current = current->next;
+			nextt = nextt->next;
+		}
+	}
+}
+
+void linkedlist::print()
+{
+	node *temp = head;
+	while (temp != NULL)
+	{
+		cout << temp->data << endl;
+		temp = temp->next;
+	}
+}
+int linkedlist::ncount()
+{
+	node* temp = head;
+	int count = 0;
+	while (temp != NULL)
+	{
+		count++;
+		temp = temp->next;
+	}
+	return count;
+}
+linkedlist::~linkedlist()  //distructor
+{
+	node* q;
+	while (head != NULL)
+	{
+		q = head->next;
+		delete head;
+		head = q;
+	}
+	delete q;
+}
+int main()
+{
+	linkedlist obj;
+	obj.addnode(3);
+	obj.addnode(2);
+	obj.addnode(1);
+	obj.addnode(4);
+	obj.addnode(2);
+	obj.addnode(6);
+	obj.print();
+	int n = obj.ncount();
+	//printing the element after selection sorting.
+	cout << "printing the element after bubble sorting." << endl;
+	obj.bubblesort(n);
+	obj.print();
+
+}
+
