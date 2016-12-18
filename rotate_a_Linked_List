@@ -1,0 +1,125 @@
+/*Rotate a Linked List
+Given a singly linked list, rotate the linked list counter-clockwise by k nodes. 
+Where k is a given positive integer. For example, if the given linked list is 10->20->30->40->50->60 and k is 4, 
+the list should be modified to 50->60->10->20->30->40. 
+Assume that k is smaller than the count of nodes in linked list.*/
+solution
+
+
+
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+
+class linkedlist
+{
+private:
+	struct node
+	{
+		int data;
+		node* next;
+	} *head;
+
+public:
+	linkedlist();
+	void addnode(int);//adding in assending order linked list
+	void rotate(int);
+	int ncount();
+	void print();
+	~linkedlist();
+};
+
+linkedlist::linkedlist()   //constructor
+{
+	head = NULL;
+}
+void linkedlist::addnode(int x)
+{
+	node *temp, *r;
+	if (head == NULL)
+	{
+		temp = new node;
+		temp->data = x;
+		temp->next = NULL;
+		head = temp;
+	}
+	else {
+		r = new node;
+		r->data = x;
+		r->next = head;
+		head = r;
+	}
+}
+
+void linkedlist::rotate(int rotatingpoint)
+{
+	node* current = head;
+	if (rotatingpoint == 0)
+	{
+		return;
+	}
+	int count = 1;
+	while (current != NULL && count < rotatingpoint)
+	{
+		count++;
+		current = current->next;
+	}
+	node * newptr = current;
+	while (current->next != NULL)
+	{
+		current = current->next;
+	}
+	current->next = head;
+	head = newptr->next;
+	newptr->next = NULL;
+}
+
+void linkedlist::print()
+{
+	node *temp = head;
+	while (temp != NULL)
+	{
+		cout << temp->data << endl;
+		temp = temp->next;
+	}
+}
+int linkedlist::ncount()
+{
+	node* temp = head;
+	int count = 0;
+	while (temp != NULL)
+	{
+		count++;
+		temp = temp->next;
+	}
+	return count;
+}
+linkedlist::~linkedlist()  //distructor
+{
+	node* q;
+	while (head != NULL)
+	{
+		q = head->next;
+		delete head;
+		head = q;
+	}
+	delete q;
+}
+int main()
+{
+	linkedlist obj;
+	obj.addnode(1);
+	obj.addnode(2);
+	obj.addnode(3);
+	obj.addnode(4);
+	obj.addnode(5);
+	obj.addnode(6);
+	obj.print();
+	int n = obj.ncount();
+	int rotatingpoint;
+	cout << "enter the rotating point" << endl;
+	cin >> rotatingpoint;
+	obj.rotate(rotatingpoint);
+	obj.print();
+
+}
