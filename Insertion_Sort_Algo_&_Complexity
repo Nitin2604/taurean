@@ -1,0 +1,44 @@
+ //    Worst case: \Theta(n ^ 2) Θ(n​2​​).
+	// Best case: \Theta(n) Θ(n).
+	// Average case for a random array: \Theta(n ^ 2) Θ(n​2).
+	//"Almost sorted" case: \Theta(n) Θ(n).
+//the bassic concept of this INSERT SORTING is that it work on the concept of hole.
+//for every itteratio it compares the value with its previosu number nad put at its own poition and then it again goes back to check another if again its possible 
+//then continuet to do so so that it reaches to its last osition and insert the value there.
+
+
+#include<stdio.h>
+#include<iostream>
+#include <vector>
+using namespace std;
+int main()
+{
+	cout << "Enter the input number to be sorted" << endl;
+	int number;
+	cin >> number;
+	vector<int>vec;
+	for (size_t i = 0; i < number; i++)
+	{
+		cout << "enter the number" << endl;
+		int x;
+		cin >> x;
+		vec.push_back(x);
+	}
+	//Insertion Sorting Algo Start Here :)
+	for (size_t val = 1; val < vec.size(); val++)
+	{
+		int value = vec[val];
+		int hole = val;
+		while (hole > 0 && vec[val-1] > value)
+		{
+			vec[hole] = vec[hole-1];
+			hole--;
+		}
+		vec[hole] = value;
+	}
+	cout <<"Printing the sorted list" << endl;
+	for (size_t a = 0; a < vec.size(); a++)
+	{
+		cout << vec[a] << endl;
+	}
+}
