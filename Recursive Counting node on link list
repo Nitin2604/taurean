@@ -1,0 +1,81 @@
+//counting nodes of link list with recursion
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+class LinkedList
+{
+private:
+	struct node
+	{
+		int data;
+		node* next;
+	} *head;
+public:
+	LinkedList();
+	void apend(int);
+	int countnode();
+	int getlength(node*);
+	~LinkedList();
+};
+
+LinkedList::LinkedList()
+{
+	head = NULL;
+}
+
+void LinkedList::apend(int x)
+{
+	node *ptr;
+	ptr = head;
+	if (ptr == NULL)
+	{
+		ptr = new node;
+		head = ptr;
+	}
+	else
+	{
+		while (ptr->next!=NULL)
+		{
+			ptr = ptr->next;
+		}
+		ptr->next = new node;
+		ptr = ptr->next;
+	}
+	ptr->data = x;
+	ptr->next = NULL;
+}
+int LinkedList::countnode()
+{
+	return getlength(head);
+}
+int LinkedList::getlength(node* pt)
+{
+	static int count;
+	if (pt == NULL)
+	{
+		return 0;
+	}
+	else
+	{
+		count = 1+ getlength(pt->next);
+		return count;
+	}
+}
+
+LinkedList::~LinkedList()
+{
+}
+
+int main()
+{
+	LinkedList obj;
+	obj.apend(1);
+	obj.apend(2);
+	obj.apend(3);
+	obj.apend(4); 
+	obj.apend(5);
+	obj.apend(6);
+	int count= obj.countnode();
+	cout << count << endl;
+
+}
