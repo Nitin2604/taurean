@@ -1,0 +1,76 @@
+//hi this is the linked list implementation of stack implementation...
+//it is the addition of node in queue and making it as a circular linked list...
+//the code in "Book Data Structure by Yashwar Kanitkar is wrong implement,here is the is best and fine code without any error"
+//you can run code in any where.. and also free the node... which i left for you...
+
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+class LinkedList
+{
+private:
+	struct node
+	{
+		int data;
+		node*next;
+	} *front, *rear;
+public:
+
+	LinkedList();
+	void AddCirQ(int);
+	void print();
+	~LinkedList();
+
+};
+
+LinkedList::LinkedList()
+{
+	front =rear= NULL;
+	/*rear = NULL;*/
+}
+
+void LinkedList::AddCirQ(int x)
+{
+	node *newnode;
+	newnode = new node;
+	newnode->data = x;
+	if (NULL == front)
+	{
+		front = newnode;
+		rear = newnode;
+
+	}
+	else
+	{
+		rear->next = newnode;
+		newnode->next = front;
+		rear = newnode;
+	}
+
+}
+void LinkedList::print()
+{
+	node *q, *p;
+	q = front;
+	p = NULL;
+	while (q != p)
+	{
+		cout << q->data << endl;
+		q = q->next;
+		p = front;
+	}
+}
+
+LinkedList::~LinkedList()
+{
+}
+
+
+int main()
+{
+	LinkedList obj;
+	obj.AddCirQ(3);
+	obj.AddCirQ(4);
+	obj.AddCirQ(1);
+	obj.print();
+}
