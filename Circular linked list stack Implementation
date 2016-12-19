@@ -1,0 +1,123 @@
+//this is my code for Linked List for stack implementation code is compiled and running see and learn linked list, circular link list 
+//and stack implemtation :)
+//Work Hard till success knocks your door
+
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+class LinkedList
+{
+private:
+	struct node
+	{
+		int data;
+		node*next;
+	} *front, *rear;
+public:
+
+	LinkedList();
+	void AddCirQ(int);
+	void DelCirQ();
+	void print();
+	~LinkedList();
+
+};
+
+LinkedList::LinkedList()
+{
+	front =rear= NULL;
+}
+
+void LinkedList::AddCirQ(int x)
+{
+	node *newnode;
+	newnode = new node;
+	newnode->data = x;
+	if (NULL == front)
+	{
+		front = newnode;
+		rear = newnode;
+
+	}
+	else
+	{
+		rear->next = newnode;
+		newnode->next = front;
+		rear = newnode;
+	}
+}
+void LinkedList::DelCirQ()
+{
+	int item;
+	node* q;
+	q = front;
+	if (front == NULL)
+	{
+		cout << "Linked List is Emptyt Try Again" << endl;
+		return;
+	}
+	else
+	{
+		if(front==rear)
+		{
+			item = front->data;
+			delete front;
+			front = NULL;
+			rear = NULL;
+		}
+		else
+		{
+			item = q->data;
+			front = front->next;
+			rear->next = front;
+			delete q;
+		}
+	}
+}
+
+void LinkedList::print()
+{
+	node *q, *p;
+	q = front;
+	p = NULL;
+	while (q != p)
+	{
+		cout << q->data << endl;
+		q = q->next;
+		p = front;
+	}
+}
+
+LinkedList::~LinkedList()
+
+	{
+	node *q;
+		while (front!=rear)
+		{
+			q = front->next;
+			delete front;
+				front = q;
+		}
+	delete rear;
+}
+
+
+int main()
+{
+	LinkedList obj;
+	obj.AddCirQ(9);
+	obj.AddCirQ(8);
+	obj.AddCirQ(7);
+	obj.AddCirQ(6);
+	obj.AddCirQ(4);
+	obj.AddCirQ(1);
+	obj.print();
+	cout << "above is input" << endl;
+	obj.DelCirQ();
+	obj.DelCirQ();
+	obj.DelCirQ();
+	obj.DelCirQ();
+	obj.DelCirQ();
+	obj.print();
+	cout << "above is out after deletion from front version of first in first out (FIFO)" << endl;
+}
