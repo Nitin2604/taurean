@@ -1,0 +1,57 @@
+//Adding node at last of linked list by recursion
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+class LinkedList
+{
+private:
+	struct node
+	{
+		int data;
+		node* next;
+	} *head;
+public:
+	LinkedList();
+	void AddByRecur(int);
+	void addrecnode(node **, int);
+	void print();
+	//void apend(int);
+	~LinkedList();
+};
+
+LinkedList::LinkedList()
+{
+	head = NULL;
+}
+
+
+void LinkedList::AddByRecur(int x)
+{
+      addrecnode(&head, x);
+}
+void LinkedList::addrecnode(node **prt, int x)
+{
+	if (*prt == NULL)
+	{
+		(*prt) = new node;
+		(*prt)->data = x;
+		(*prt)->next = NULL;
+	}
+	else
+	{
+		addrecnode(&((*prt)->next), x);
+	}
+}
+LinkedList::~LinkedList()
+{
+}
+
+int main()
+{
+	LinkedList obj;
+	/*LinkedList obj1;*/
+	obj.AddByRecur(5);
+	obj.AddByRecur(6);
+	obj.AddByRecur(7);
+	obj.print();
+}
