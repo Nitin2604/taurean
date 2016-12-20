@@ -1,0 +1,132 @@
+/*Identical Linked Lists
+Two Linked Lists are identical when they have same data and arrangement of data is also same. For example Linked lists a (1->2->3) and b(1->2->3) are identical. . Write a function to check if the given two linked lists are identical.*/
+
+#include<stdio.h>
+#include "stdafx.h"
+#include<iostream>
+using namespace std;
+class LinkedList
+{
+private:
+	struct node
+	{
+		int data;
+		node* next;
+	} *head;
+public:
+	LinkedList();
+	void apend(int);
+	int countnode();
+	bool compairfunction(LinkedList &obj1);
+	bool getcomparebool(node* prt1 , node* ptr2);
+	int getlength(node*);
+	~LinkedList();
+};
+
+LinkedList::LinkedList()
+{
+	head = NULL;
+}
+
+void LinkedList::apend(int x)
+{
+	node *ptr;
+	ptr = head;
+	if (ptr == NULL)
+	{
+		ptr = new node;
+		head = ptr;
+	}
+	else
+	{
+		while (ptr->next != NULL)
+		{
+			ptr = ptr->next;
+		}
+		ptr->next = new node;
+		ptr = ptr->next;
+	}
+	ptr->data = x;
+	ptr->next = NULL;
+}
+int LinkedList::countnode()
+{
+	return getlength(head);
+}
+int LinkedList::getlength(node* pt)
+{
+	static int count;
+	if (pt == NULL)
+	{
+		return 0;
+	}
+	else
+	{
+		count = 1 + getlength(pt->next);
+		return count;
+	}
+}
+
+bool LinkedList::compairfunction(LinkedList &obj1)
+{
+	return getcomparebool(head,obj1.head);
+}
+bool LinkedList::getcomparebool(node *obj, node *obj1)
+{
+	if (obj == NULL && obj1 == NULL)
+	{
+		return true;
+	}
+	else
+	{
+		if (obj->data != obj1->data)
+		{
+			return false;
+		}
+		if ((obj->next != NULL && obj1->next == NULL)||(obj->next == NULL && obj1->next != NULL))
+		{
+			return false;
+		}
+		else
+		{
+			/*obj = obj->next;
+			obj1 = obj1->next;*/
+			getcomparebool(obj->next,obj1->next);
+		}
+	}
+ }
+
+LinkedList::~LinkedList()
+{
+}
+
+int main()
+{
+	LinkedList obj;
+	LinkedList obj1;
+	obj.apend(1);
+	obj.apend(2);
+	obj.apend(3);
+	obj.apend(4);
+	obj.apend(5);
+	obj.apend(6);
+	int count = obj.countnode();
+	cout << count << endl;
+	obj1.apend(1);
+	obj1.apend(2);
+	obj1.apend(3);
+	obj1.apend(4);
+	obj1.apend(5);
+	obj1.apend(6);
+	int count1 = obj1.countnode();
+	bool val;
+	val = obj.compairfunction(obj1);
+	if (val == true)
+	{
+		cout << "Both Linked Lists are Identical" << endl;
+	}
+	else
+	{
+		cout << "Both Linked Lists are not Indentical" << endl;
+	}
+}
