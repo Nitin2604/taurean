@@ -1,0 +1,87 @@
+//Appending Duble Linked List
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+class LinkedList
+{
+private:
+	struct node
+	{
+		int data;
+		node*next;
+		node* prev;
+	} *head;
+public:
+
+	LinkedList();
+	void apend(int);
+	void print();
+	~LinkedList();
+
+};
+
+LinkedList::LinkedList()
+{
+	head = NULL;
+}
+void LinkedList::apend(int x)
+{
+	node *temp, *newnode;
+	temp = head;
+	if (temp == NULL)
+	{
+		newnode = new node;
+		newnode->next = NULL;
+		newnode->data = x;
+		newnode->prev = NULL;
+		head = newnode;
+	}
+	else
+	{
+		while (temp->next != NULL)
+		{
+			temp = temp->next;
+		}
+		newnode = new node;
+		newnode->data = x;
+		newnode->next = NULL;
+		newnode->prev = temp;
+		temp->next = newnode;
+	}
+}
+void LinkedList::print()
+{
+	node *q;
+	q = head;
+	while (q != NULL)
+	{
+		cout << q->data << endl;
+		q = q->next;
+	}
+}
+
+LinkedList::~LinkedList()
+{
+	node *q;
+	while (head != NULL)
+	{
+		q = head->next;
+		delete head;
+		head = q;
+	}
+	delete q;
+}
+
+
+int main()
+{
+	LinkedList obj;
+	obj.apend(9);
+	obj.apend(8);
+	obj.apend(7);
+	obj.apend(6);
+	obj.apend(4);
+	obj.apend(1);
+	obj.print();
+	cout << "output" << endl;
+}
