@@ -1,0 +1,95 @@
+//Appending Duble Linked List
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+class LinkedList
+{
+private:
+	struct node
+	{
+		float data;
+		int power;
+		node* next;
+	} *head;
+public:
+
+	LinkedList();
+	void apend(float, int);
+	void print();
+	~LinkedList();
+
+};
+
+LinkedList::LinkedList()
+{
+	head = NULL;
+}
+void LinkedList::apend(float f, int x)
+{
+	node *temp, *newnode;
+	temp = head;
+	if (head == NULL)
+	{
+		newnode = new node;
+		newnode->data = f;
+		newnode->power = x;
+		newnode->next = NULL;
+		head = newnode;
+	}
+	else
+	{
+		while (temp->next!=NULL)
+		  {
+			temp = temp->next;
+		  }
+		temp->next = new node;
+		temp = temp->next;
+		temp->data = f;
+		temp->power = x;
+		temp->next = NULL;
+	}
+	
+}
+void LinkedList::print()
+{
+	node *q;
+	q = head;
+	while (q != NULL)
+	{
+		cout << q->data << "x^";
+		if (q->power > 0)
+		{
+			cout << q->power;
+			cout << "+ ";
+		}
+		else
+		{
+			cout << q->power;
+		}
+		/*cout << q->data <<"x"<<"^"<<q->power;*/
+		q = q->next;
+	}
+}
+
+LinkedList::~LinkedList()
+{
+	node *q;
+	while (head != NULL)
+	{
+		q = head->next;
+		delete head;
+		head = q;
+	}
+	delete q;
+}
+
+
+int main()
+{
+	LinkedList obj;
+	obj.apend(4, 2);
+	obj.apend(2, 1);
+	obj.apend(1, 0);
+	obj.print();
+	cout << "output" << endl;
+}
