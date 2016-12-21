@@ -1,0 +1,83 @@
+//Making the binary search tree code
+//BST iserting the element in Tree code
+#include<iostream>
+#include<stdio.h>
+#include<math.h>
+using namespace std;
+
+class binarytree
+{
+private:
+	struct bnode
+	{
+		int data;
+		bnode* left;
+		bnode* right;
+	} *root;
+public:
+
+	binarytree();
+	void InsertInTree(int x);
+	void insert(bnode **root, int x);
+	void del(bnode *root);
+	~binarytree();
+};
+
+binarytree::binarytree()
+{
+	root = NULL;
+}
+
+binarytree::~binarytree()
+{
+	del(root);
+}
+void binarytree::del(bnode *root)
+{
+	if (root != NULL)
+	{
+		del(root->left);
+		del(root->right);
+	}
+	delete root;
+}
+void binarytree::InsertInTree(int x)
+{
+	insert(&root, x);
+}
+void binarytree::insert(bnode **newnode, int x)
+{
+	if (*newnode == NULL)
+	{
+		(*newnode) = new bnode;
+		(*newnode)->data = x;
+		(*newnode)->left = NULL;
+		(*newnode)->right = NULL;
+		return;
+	}
+	else //here is the recursion method of adding node to the tree of linked list
+	{
+		if ((*newnode)->data > x)
+		{
+			insert(&(*newnode)->left, x);
+		}
+		else
+		{
+			insert(&(*newnode)->right, x);
+		}
+	}
+	return;
+}
+int main()
+{
+	cout <<"Enter the numbers to be entered in tree" << endl;
+	int length;
+	binarytree obj;
+	cin >> length;
+	for (size_t i = 0; i < length; i++)
+	{
+		int val;
+		cin >> val;
+		obj.InsertInTree(val);
+	}
+}
