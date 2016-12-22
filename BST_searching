@@ -1,0 +1,187 @@
+#include<iostream>
+#include<stdio.h>
+#include<math.h>
+using namespace std;
+
+class binarytree
+{
+private:
+	struct bnode
+	{
+		int data;
+		bnode* left;
+		bnode* right;
+	} *root;
+public:
+
+	binarytree();
+	void InsertInTree(int x);
+	void insert(bnode **root, int x);
+	void del(bnode *root);
+	void treversal();
+	void Inorder(bnode *root);
+	void Prefix(bnode *root);
+	void Postfix(bnode *root);
+	bool search(bnode**, int x);
+	bool forsearch(int x);
+	/*void display();*
+	/*void dis(bnode *);*/
+	~binarytree();
+};
+
+binarytree::binarytree()
+{
+	root = NULL;
+}
+
+binarytree::~binarytree()
+{
+	del(root);
+}
+void binarytree::del(bnode *root)
+{
+	if (root != NULL)
+	{
+		del(root->left);
+		del(root->right);
+	}
+	delete root;
+}
+void binarytree::InsertInTree(int x)
+{
+	insert(&root, x);
+}
+
+void binarytree::insert(bnode **newnode, int x)
+{
+	if (*newnode == NULL)
+	{
+		(*newnode) = new bnode;
+		(*newnode)->data = x;
+		(*newnode)->left = NULL;
+		(*newnode)->right = NULL;
+		return;
+	}
+	else //here is the recursion method of adding node to the tree of linked list
+	{
+		if ((*newnode)->data > x)
+		{
+			insert(&(*newnode)->left, x);
+		}
+		else
+		{
+			insert(&(*newnode)->right, x);
+		}
+	}
+	return;
+}
+/////////////////////////////////////////
+//function to display of tree//
+///////////////////////////////////////
+//void binarytree::display()
+//{
+//	dis(root);
+//}
+//void binarytree::dis(bnode *root)
+//{
+//	if (root != NULL)
+//	{ 
+//
+//		dis(root->left);
+//		cout << root->data << endl;
+//		dis(root->right);
+//	}
+//}
+void binarytree::treversal()
+{
+	cout << "Inorder treversal" << endl;
+	Inorder(root);
+	cout << "Prefix treversal" << endl;
+	Prefix(root);
+	cout << "Postfix treversal" << endl;
+	Postfix(root);
+}
+void binarytree::Inorder(bnode *sr)
+{
+	if (sr != NULL)
+	{
+		Inorder(sr->left);
+		cout << sr->data << endl;
+		Inorder(sr->right);
+	}
+}
+void binarytree::Prefix(bnode *sr)
+{
+	if (sr != NULL)
+	{
+		cout << sr->data << endl;
+		Prefix(sr->left);
+		Prefix(sr->right);
+	}
+	else
+		return;
+}
+void binarytree::Postfix(bnode *sr)
+{
+	if (sr != NULL)
+	{
+		Postfix(sr->left);
+		Postfix(sr->right);
+		cout << sr->data << endl;
+	}
+	else
+	{
+		return;
+	}
+}
+bool binarytree::forsearch(int x)
+{
+	return search(&root, x);
+}
+bool binarytree::search(bnode **root, int x) {
+	bool value;
+	if (*root == NULL)
+	{
+		value = false;
+		return value;
+	}
+    if ((*root)->data ==x)
+	{
+		value = true;
+		return value;
+	}
+	if ((*root)->data > x)
+	{
+		search(&(*root)->left, x);
+	}
+	else
+	{
+		search(&(*root)->right, x);
+	}
+}
+
+int main()
+{
+	cout <<"Enter the numbers to be entered in tree" << endl;
+	int length;
+	binarytree obj;
+	cin >> length;
+	for (size_t i = 0; i < length; i++)
+	{
+		int val;
+		cin >> val;
+		obj.InsertInTree(val);
+	}
+	/*obj.display();*/
+	obj.treversal();
+	bool val;
+	int searchelement;
+	cin >> searchelement;
+	val= obj.forsearch(searchelement);
+	if (val == true)
+	{
+		cout << "found"<< endl;
+	}
+	else
+		cout << "not found" << endl;
+}
