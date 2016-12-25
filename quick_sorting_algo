@@ -1,0 +1,82 @@
+#include"iostream"
+#include"stdio.h"
+#define MAX 15
+using namespace std;
+class quicksort
+{
+public:
+	quicksort();
+	~quicksort();
+	void add(int);
+	int getcount();
+	void quicksortfun(int, int);
+	int SplitFun(int *, int, int);
+
+
+private:
+	int count;
+	int myarray[MAX];
+};
+
+quicksort::quicksort()
+{
+	count = 0;
+	memset(myarray, 0, MAX);
+}
+
+void quicksort::add(int x)
+{
+	if (count<MAX)
+	{
+		myarray[count] = x;
+		count++;
+	}
+}
+int quicksort::getcount()
+{
+	return count;
+}
+void quicksort::quicksortfun(int start, int end)
+{
+	if (start < end)
+	{
+		int PIndex = SplitFun(myarray, start, end);
+		quicksortfun(start, PIndex -1);
+		quicksortfun(PIndex + 1, end);
+	}
+}
+
+int quicksort::SplitFun(int *myarray, int start, int end)
+{
+	int pivot;
+	pivot = myarray[end];
+	int PIndex = start;
+	for (size_t i = start; i < end; i++)
+	{
+		if (myarray[i]<pivot)
+		{
+			swap(myarray[i], myarray[PIndex]);
+			PIndex++;
+		}
+	}
+	swap(myarray[PIndex], myarray[end]);
+	return PIndex;
+}
+quicksort::~quicksort()
+{
+}
+
+int main()
+{
+	quicksort obj;
+	obj.add(7);
+	obj.add(2);
+	obj.add(6);
+	obj.add(8);
+	obj.add(5);
+	obj.add(3);
+	obj.add(4);
+	int l_ncount;
+	l_ncount = obj.getcount();
+	obj.quicksortfun(0, l_ncount - 1);
+}
