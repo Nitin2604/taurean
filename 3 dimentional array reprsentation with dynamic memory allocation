@@ -1,0 +1,41 @@
+//this the 3 dimentional array reprsentation with dynamic memory allocation 
+#include<iostream>
+using namespace std;
+int main()
+{
+	int row, col, height;
+	int count = 0;
+	cin >> row;
+	cin >> col;
+	cin >> height;
+	int ***l_arr = (int***)malloc(sizeof(int **) * height);
+	for (size_t i = 0; i < height; i++)
+	{
+		l_arr[i] = (int **)malloc(sizeof(int)*row);
+		for (size_t j = 0; j < row; j++)
+		{
+			l_arr[i][j] = (int*)malloc(sizeof(int)*col);
+		}
+	}
+	for (size_t i = 0; i < height; i++)
+	{
+		for (size_t j = 0; j < row; j++)
+		{
+			for (size_t k = 0; k < col; k++)
+			{
+				l_arr[i][j][k] = count++;
+			}
+		}
+	}
+	for (size_t i = 0; i < height; i++)
+	{
+		for (size_t j = 0; j < row; j++)
+		{
+			for (size_t k = 0; k < col; k++)
+			{
+				cout << l_arr[i][j][k];
+			}
+			cout << endl;
+		}
+	}
+}
